@@ -7,10 +7,8 @@ export const Wiggle = ({
   valueIndex = 0,
   thickness = 1.5,
   blockSize,
-  overFlow = 1,
-  wiggleData,
-  showControlPoints = false,
-  showBlocks = false
+  overFlow = 1.8,
+  wiggleData
 }) => {
   const startX = x;
   const startY = y;
@@ -110,56 +108,13 @@ export const Wiggle = ({
   }
 
   return (
-    <g>
-      {showBlocks &&
-        wiggleData.map((fraction, index) => {
-          const blockX = x + blockSize * index;
-          const blockY = y - blockSize / 2;
-
-          return (
-            <rect
-              stroke="rgba(0,0,0,0.1)"
-              fill="transparent"
-              key={index}
-              x={blockX}
-              y={blockY}
-              width={blockSize}
-              height={blockSize}
-            />
-          );
-        })}
-
-      {showControlPoints &&
-        nodePointProps.map((node, index) => {
-          return (
-            <circle key={index} cx={node.x} cy={node.y} r="2" fill={"green"} />
-          );
-        })}
-
-      {showControlPoints &&
-        controlPointProps.map((node, index) => {
-          return (
-            <g key={index}>
-              <line
-                x1={node.x}
-                y1={node.y}
-                x2={node.targX}
-                y2={node.targY}
-                stroke="black"
-              />
-              <circle cx={node.x} cy={node.y} r="2" fill={"red"} />
-            </g>
-          );
-        })}
-
-      <path
-        d={fullWigglePath}
-        strokeLinejoin={"round"}
-        strokeLinecap={"round"}
-        strokeWidth={thickness}
-        stroke={colour}
-        fill="transparent"
-      />
-    </g>
+    <path
+      d={fullWigglePath}
+      strokeLinejoin={"round"}
+      strokeLinecap={"round"}
+      strokeWidth={thickness}
+      stroke={colour}
+      fill="transparent"
+    />
   );
 };

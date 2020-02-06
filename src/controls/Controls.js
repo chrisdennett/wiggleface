@@ -14,38 +14,29 @@ const Controls = ({ appData, onUpdate }) => {
     });
   };
 
+  const settingsKeys = Object.keys(settings);
+  const rangeSettingsKeys = settingsKeys.filter(
+    key => settings[key].type === "range"
+  );
+
   return (
     <Container>
       <ControlsUI>
-        <SliderControl
-          labelStyle={{ minWidth: 150 }}
-          label={settings.pointOffset.label}
-          displayValue={true}
-          min={settings.pointOffset.min}
-          max={settings.pointOffset.max}
-          value={settings.pointOffset.value}
-          onChange={value => updateSettings("pointOffset", value)}
-        />
-        <SliderControl
-          labelStyle={{ minWidth: 150 }}
-          label={settings.totalBlocksAlongLongestSide.label}
-          displayValue={true}
-          min={settings.totalBlocksAlongLongestSide.min}
-          max={settings.totalBlocksAlongLongestSide.max}
-          value={settings.totalBlocksAlongLongestSide.value}
-          onChange={value =>
-            updateSettings("totalBlocksAlongLongestSide", value)
-          }
-        />
-        <SliderControl
-          labelStyle={{ minWidth: 150 }}
-          label={settings.lineThickness.label}
-          displayValue={true}
-          min={settings.lineThickness.min}
-          max={settings.lineThickness.max}
-          value={settings.lineThickness.value}
-          onChange={value => updateSettings("lineThickness", value)}
-        />
+        {rangeSettingsKeys.map(key => {
+          const currSetting = settings[key];
+          return (
+            <SliderControl
+              key={key}
+              labelStyle={{ minWidth: 150 }}
+              label={currSetting.label}
+              displayValue={true}
+              min={currSetting.min}
+              max={currSetting.max}
+              value={currSetting.value}
+              onChange={value => updateSettings(key, value)}
+            />
+          );
+        })}
       </ControlsUI>
     </Container>
   );

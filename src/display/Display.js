@@ -9,7 +9,19 @@ const Display = ({ sizeInfo, appData }) => {
   const [blockSize, setBlockSize] = useState(10);
   const [blockData, setBlockData] = useState(null);
 
-  const { totalBlocksAlongLongestSide } = appData.settings;
+  const {
+    totalBlocksAlongLongestSide,
+    lineThickness,
+    cyanXOffset,
+    cyanYOffset,
+    magentaXOffset,
+    magentaYOffset,
+    yellowXOffset,
+    yellowYOffset,
+    blackXOffset,
+    blackYOffset,
+    overFlow
+  } = appData.settings;
 
   const cyanAsRGB = CMYKtoRGB(255, 0, 0, 0);
   const magentaAsRGB = CMYKtoRGB(0, 255, 0, 0);
@@ -67,41 +79,45 @@ const Display = ({ sizeInfo, appData }) => {
         {rows.map((row, index) => (
           <g key={index}>
             <Wiggle
+              overFlow={overFlow.value}
               colour={yellow}
-              thickness={1}
+              thickness={lineThickness}
               valueIndex={2}
-              x={0}
-              y={index * blockSize}
+              x={yellowXOffset.value}
+              y={yellowYOffset.value + index * blockSize}
               blockSize={blockSize}
               wiggleData={row}
             />
 
             <Wiggle
+              overFlow={overFlow.value}
               colour={magenta}
-              thickness={1}
+              thickness={lineThickness}
               valueIndex={1}
-              x={0}
-              y={index * blockSize}
+              x={magentaXOffset.value}
+              y={magentaYOffset.value + index * blockSize}
               blockSize={blockSize}
               wiggleData={row}
             />
 
             <Wiggle
+              overFlow={overFlow.value}
               colour={cyan}
-              thickness={1}
+              thickness={lineThickness}
               valueIndex={0}
-              x={0}
-              y={index * blockSize}
+              x={cyanXOffset.value}
+              y={cyanYOffset.value + index * blockSize}
               blockSize={blockSize}
               wiggleData={row}
             />
 
             <Wiggle
+              overFlow={overFlow.value}
               colour={black}
-              thickness={1}
+              thickness={lineThickness.value}
               valueIndex={3}
-              x={0}
-              y={index * blockSize}
+              x={blackXOffset.value}
+              y={blackYOffset.value + index * blockSize}
               blockSize={blockSize}
               wiggleData={row}
             />
