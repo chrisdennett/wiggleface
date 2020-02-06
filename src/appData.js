@@ -6,9 +6,9 @@ export const defaultAppData = {
     totalBlocksAlongLongestSide: {
       label: "Total Blocks Along Longest Side",
       type: "range",
-      min: 10,
+      min: 2,
       max: 120,
-      value: 42
+      value: 10
     },
     overFlow: {
       label: "Wiggle Overlap",
@@ -22,28 +22,28 @@ export const defaultAppData = {
       type: "range",
       min: 0,
       max: 100,
-      value: 2
+      value: 0
     },
     blackXOffset: {
       label: "Black X Offset",
       type: "range",
       min: 0,
       max: 100,
-      value: 2
+      value: 0
     },
     magentaYOffset: {
       label: "Magenta Y Offset",
       type: "range",
       min: 0,
       max: 100,
-      value: 4
+      value: 0
     },
     magentaXOffset: {
       label: "Magenta X Offset",
       type: "range",
       min: 0,
       max: 100,
-      value: 4
+      value: 0
     },
     yellowYOffset: {
       label: "Yellow Y Offset",
@@ -64,21 +64,21 @@ export const defaultAppData = {
       type: "range",
       min: 0,
       max: 100,
-      value: 6
+      value: 0
     },
     cyanXOffset: {
       label: "Cyan X Offset",
       type: "range",
       min: 0,
       max: 100,
-      value: 6
+      value: 0
     },
     lineThickness: {
       label: "Line Thickness",
       type: "range",
       min: 1,
       max: 10,
-      value: 1.5
+      value: 4
     }
   }
 };

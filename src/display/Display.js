@@ -40,8 +40,8 @@ const Display = ({ sizeInfo, appData }) => {
       image.onload = () => {
         setSourceImg(image);
       };
-      image.src = "img/holly.jpg";
-      // image.src = "img/sample-397x480.png";
+      // image.src = "img/holly.jpg";
+      image.src = "img/sample-397x480.png";
     } else {
       const smallCanvas = createSmallCanvas(
         sourceImg,
@@ -68,7 +68,9 @@ const Display = ({ sizeInfo, appData }) => {
 
   if (!blockData) return <div>NO DATA</div>;
 
-  const { rows } = blockData;
+  const { rows, cols } = blockData;
+
+  const showRows = true;
 
   return (
     <Container>
@@ -76,41 +78,60 @@ const Display = ({ sizeInfo, appData }) => {
         style={{ width: "100%", height: "100%" }}
         viewBox={`0 0 ${canvasWidth} ${canvasHeight}`}
       >
-        {rows.map((row, index) => (
-          <g key={index}>
-            <Wiggle
-              overFlow={overFlow.value}
-              colour={yellow}
-              thickness={lineThickness}
-              valueIndex={2}
-              x={yellowXOffset.value}
-              y={yellowYOffset.value + index * blockSize}
-              blockSize={blockSize}
-              wiggleData={row}
-            />
+        {showRows &&
+          rows.map((row, index) => (
+            <g
+              key={index}
+              transform={`scale(-1 1) translate(-${canvasWidth} 0)`}
+            >
+              <Wiggle
+                overFlow={overFlow.value}
+                colour={yellow}
+                thickness={lineThickness.value}
+                valueIndex={2}
+                x={yellowXOffset.value}
+                y={yellowYOffset.value + index * blockSize}
+                blockSize={blockSize}
+                wiggleData={row}
+              />
 
-            <Wiggle
-              overFlow={overFlow.value}
-              colour={magenta}
-              thickness={lineThickness}
-              valueIndex={1}
-              x={magentaXOffset.value}
-              y={magentaYOffset.value + index * blockSize}
-              blockSize={blockSize}
-              wiggleData={row}
-            />
+              <Wiggle
+                overFlow={overFlow.value}
+                colour={magenta}
+                thickness={lineThickness.value}
+                valueIndex={1}
+                x={magentaXOffset.value}
+                y={magentaYOffset.value + index * blockSize}
+                blockSize={blockSize}
+                wiggleData={row}
+              />
 
-            <Wiggle
-              overFlow={overFlow.value}
-              colour={cyan}
-              thickness={lineThickness}
-              valueIndex={0}
-              x={cyanXOffset.value}
-              y={cyanYOffset.value + index * blockSize}
-              blockSize={blockSize}
-              wiggleData={row}
-            />
+              <Wiggle
+                overFlow={overFlow.value}
+                colour={cyan}
+                thickness={lineThickness.value}
+                valueIndex={0}
+                x={cyanXOffset.value}
+                y={cyanYOffset.value + index * blockSize}
+                blockSize={blockSize}
+                wiggleData={row}
+              />
 
+              {/* <Wiggle
+                overFlow={overFlow.value}
+                colour={black}
+                thickness={lineThickness.value}
+                valueIndex={0}
+                x={blackXOffset.value}
+                y={blackYOffset.value + index * blockSize}
+                blockSize={blockSize}
+                wiggleData={row}
+              /> */}
+            </g>
+          ))}
+
+        {cols.map((col, index) => (
+          <g key={index} transform={`rotate(90)  translate(0 -${canvasWidth})`}>
             <Wiggle
               overFlow={overFlow.value}
               colour={black}
@@ -119,7 +140,7 @@ const Display = ({ sizeInfo, appData }) => {
               x={blackXOffset.value}
               y={blackYOffset.value + index * blockSize}
               blockSize={blockSize}
-              wiggleData={row}
+              wiggleData={col}
             />
           </g>
         ))}

@@ -11,7 +11,7 @@ export const Wiggle = ({
   wiggleData
 }) => {
   const startX = x;
-  const startY = y;
+  const startY = y + blockSize / 2;
 
   const minWiggleFraction = 0.025;
 
@@ -31,7 +31,9 @@ export const Wiggle = ({
       wiggleData[i][valueIndex],
       minWiggleFraction
     );
-    const wigglesPerBox = 1 + Math.ceil(wiggleFraction * 5);
+
+    const minWigglePerBox = 0;
+    const wigglesPerBox = minWigglePerBox + Math.ceil(wiggleFraction * 5);
 
     const wiggleHeight = blockSize * overFlow * wiggleFraction;
 
