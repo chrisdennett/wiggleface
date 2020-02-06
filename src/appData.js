@@ -2,15 +2,13 @@ export const defaultAppData = {
   title: "FACE LINES",
   infoUrl: "https://artfly.io/binary-hands",
   settings: {
-    showVerticalLines: false,
-    showHorizontalLines: true,
     fringeFraction: 0.03,
     totalBlocksAlongLongestSide: {
       label: "Total Blocks Along Longest Side",
       type: "range",
       min: 10,
       max: 120,
-      value: 48
+      value: 60
     },
     pointOffset: {
       label: "Point Offset",

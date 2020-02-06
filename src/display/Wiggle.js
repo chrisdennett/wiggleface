@@ -3,6 +3,9 @@ import React from "react";
 export const Wiggle = ({
   x = 0,
   y = 0,
+  colour = "#000",
+  valueIndex = 0,
+  thickness = 1.5,
   blockSize,
   overFlow = 1,
   wiggleData,
@@ -26,7 +29,10 @@ export const Wiggle = ({
   for (let i = 0; i < totalBlocks; i++) {
     // const isLastBlock = i === totalBlocks - 1;
     // enforce a min wiggle
-    const wiggleFraction = Math.max(wiggleData[i], minWiggleFraction);
+    const wiggleFraction = Math.max(
+      wiggleData[i][valueIndex],
+      minWiggleFraction
+    );
     const wigglesPerBox = 1 + Math.ceil(wiggleFraction * 5);
 
     const wiggleHeight = blockSize * overFlow * wiggleFraction;
@@ -150,8 +156,8 @@ export const Wiggle = ({
         d={fullWigglePath}
         strokeLinejoin={"round"}
         strokeLinecap={"round"}
-        strokeWidth={1.5}
-        stroke="black"
+        strokeWidth={thickness}
+        stroke={colour}
         fill="transparent"
       />
     </g>
