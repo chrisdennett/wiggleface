@@ -36,14 +36,14 @@ export const defaultAppData = {
       type: "range",
       min: 0,
       max: 100,
-      value: 0
+      value: 3
     },
     magentaXOffset: {
       label: "Magenta X Offset",
       type: "range",
       min: 0,
       max: 100,
-      value: 0
+      value: 3
     },
     yellowYOffset: {
       label: "Yellow Y Offset",
@@ -57,7 +57,7 @@ export const defaultAppData = {
       type: "range",
       min: 0,
       max: 100,
-      value: 0
+      value: 6
     },
     cyanYOffset: {
       label: "Cyan Y Offset",
