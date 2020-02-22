@@ -11,6 +11,11 @@ const Display = ({ sizeInfo, appData }) => {
 
   const {
     totalBlocksAlongLongestSide,
+    showBlackHorizontal,
+    showBlackVertical,
+    showCyan,
+    showMagenta,
+    showYellow,
     lineThickness,
     cyanXOffset,
     cyanYOffset,
@@ -41,7 +46,12 @@ const Display = ({ sizeInfo, appData }) => {
         setSourceImg(image);
       };
       // image.src = "img/holly.jpg";
-      image.src = "img/sample-397x480.png";
+      // image.src = "img/jennie-chris-1.jpg";
+      // image.src = "img/holly-dot.jpg";
+      image.src = "img/jennie-4.jpg";
+      // image.src = "img/jennie-eyes.jpg";
+      //image.src = "img/jennie-eye.jpg";
+      // image.src = "img/sample-397x480.png";
     } else {
       const smallCanvas = createSmallCanvas(
         sourceImg,
@@ -69,12 +79,12 @@ const Display = ({ sizeInfo, appData }) => {
   if (!blockData) return <div>NO DATA</div>;
 
   const { rows, cols } = blockData;
-
   const showRows = true;
 
   return (
-    <Container>
+    <Container id="svgHolder">
       <svg
+        xmlns="http://www.w3.org/2000/svg"
         style={{ width: "90%", height: "90%", margin: "2.5%" }}
         viewBox={`0 0 ${canvasWidth} ${canvasHeight}`}
       >
@@ -84,66 +94,78 @@ const Display = ({ sizeInfo, appData }) => {
               key={index}
               transform={`scale(-1 1) translate(-${canvasWidth} 0)`}
             >
-              <Wiggle
-                overFlow={overFlow.value}
-                colour={yellow}
-                thickness={lineThickness.value}
-                valueIndex={2}
-                x={yellowXOffset.value}
-                y={yellowYOffset.value + index * blockSize}
-                blockSize={blockSize}
-                wiggleData={row}
-              />
+              {showYellow.value && (
+                <Wiggle
+                  overFlow={overFlow.value}
+                  colour={yellow}
+                  thickness={lineThickness.value}
+                  valueIndex={2}
+                  x={yellowXOffset.value}
+                  y={yellowYOffset.value + index * blockSize}
+                  blockSize={blockSize}
+                  wiggleData={row}
+                />
+              )}
 
-              <Wiggle
-                overFlow={overFlow.value}
-                colour={magenta}
-                thickness={lineThickness.value}
-                valueIndex={1}
-                x={magentaXOffset.value}
-                y={magentaYOffset.value + index * blockSize}
-                blockSize={blockSize}
-                wiggleData={row}
-              />
+              {showMagenta.value && (
+                <Wiggle
+                  overFlow={overFlow.value}
+                  colour={magenta}
+                  thickness={lineThickness.value}
+                  valueIndex={1}
+                  x={magentaXOffset.value}
+                  y={magentaYOffset.value + index * blockSize}
+                  blockSize={blockSize}
+                  wiggleData={row}
+                />
+              )}
 
-              <Wiggle
-                overFlow={overFlow.value}
-                colour={cyan}
-                thickness={lineThickness.value}
-                valueIndex={0}
-                x={cyanXOffset.value}
-                y={cyanYOffset.value + index * blockSize}
-                blockSize={blockSize}
-                wiggleData={row}
-              />
+              {showCyan.value && (
+                <Wiggle
+                  overFlow={overFlow.value}
+                  colour={cyan}
+                  thickness={lineThickness.value}
+                  valueIndex={0}
+                  x={cyanXOffset.value}
+                  y={cyanYOffset.value + index * blockSize}
+                  blockSize={blockSize}
+                  wiggleData={row}
+                />
+              )}
 
-              {/* <Wiggle
-                overFlow={overFlow.value}
-                colour={black}
-                thickness={lineThickness.value}
-                valueIndex={0}
-                x={blackXOffset.value}
-                y={blackYOffset.value + index * blockSize}
-                blockSize={blockSize}
-                wiggleData={row}
-              /> */}
+              {showBlackHorizontal.value && (
+                <Wiggle
+                  overFlow={overFlow.value}
+                  colour={black}
+                  thickness={lineThickness.value}
+                  valueIndex={3}
+                  x={blackXOffset.value}
+                  y={blackYOffset.value + index * blockSize}
+                  blockSize={blockSize}
+                  wiggleData={row}
+                />
+              )}
             </g>
           ))}
 
-        {cols.map((col, index) => (
-          <g key={index} transform={`rotate(90)  translate(0 -${canvasWidth})`}>
-            <Wiggle
-              overFlow={overFlow.value}
-              colour={black}
-              thickness={lineThickness.value}
-              valueIndex={3}
-              x={blackXOffset.value}
-              y={blackYOffset.value + index * blockSize}
-              blockSize={blockSize}
-              wiggleData={col}
-            />
-          </g>
-        ))}
+        {showBlackVertical.value &&
+          cols.map((col, index) => (
+            <g
+              key={index}
+              transform={`rotate(90)  translate(0 -${canvasWidth})`}
+            >
+              <Wiggle
+                overFlow={overFlow.value}
+                colour={black}
+                thickness={lineThickness.value}
+                valueIndex={3}
+                x={blackXOffset.value}
+                y={blackYOffset.value + index * blockSize}
+                blockSize={blockSize}
+                wiggleData={col}
+              />
+            </g>
+          ))}
       </svg>
     </Container>
   );

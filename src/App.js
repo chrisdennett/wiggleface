@@ -31,9 +31,9 @@ function App() {
         </Space.Info>
       </Space.Fill>
       {optionsVisible && (
-        <Space.BottomResizable size={180} scrollable={true}>
+        <Space.LeftResizable size={280} scrollable={true}>
           <Controls onUpdate={setAppData} appData={appData} />
-        </Space.BottomResizable>
+        </Space.LeftResizable>
       )}
     </Space.ViewPort>
   );

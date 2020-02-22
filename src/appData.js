@@ -3,12 +3,45 @@ export const defaultAppData = {
   infoUrl: "https://artfly.io/binary-hands",
   settings: {
     fringeFraction: 0.03,
+    showBlackHorizontal: {
+      label: "Black Horizontal",
+      type: "boolean",
+      value: false
+    },
+    showBlackVertical: {
+      label: "Black Vertical",
+      type: "boolean",
+      value: true
+    },
+    showCyan: {
+      label: "Cyan",
+      type: "boolean",
+      value: false
+    },
+    showMagenta: {
+      label: "Magenta",
+      type: "boolean",
+      value: false
+    },
+    showYellow: {
+      label: "Yellow",
+      type: "boolean",
+      value: false
+    },
+
     totalBlocksAlongLongestSide: {
       label: "Total Blocks Along Longest Side",
       type: "range",
       min: 2,
       max: 120,
-      value: 10
+      value: 55
+    },
+    lineThickness: {
+      label: "Line Thickness",
+      type: "range",
+      min: 1,
+      max: 10,
+      value: 1.3
     },
     overFlow: {
       label: "Wiggle Overlap",
@@ -72,13 +105,6 @@ export const defaultAppData = {
       min: 0,
       max: 100,
       value: 0
-    },
-    lineThickness: {
-      label: "Line Thickness",
-      type: "range",
-      min: 1,
-      max: 10,
-      value: 4
     }
   }
 };

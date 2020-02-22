@@ -6,7 +6,7 @@ import { Switch } from "@rmwc/switch";
 
 export const SwitchControl = ({
   value,
-  onUpdate,
+  onChange,
   label,
   className,
   defaultChecked = false
@@ -15,7 +15,7 @@ export const SwitchControl = ({
     className={className}
     defaultChecked={defaultChecked}
     checked={value}
-    onChange={e => onUpdate(e.currentTarget.checked)}
+    onChange={e => onChange(e.currentTarget.checked)}
     label={label}
   />
 );
