@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Wiggle } from "./Wiggle";
+// import { WebcamCapture } from "../components/WebcamCapture";
 
 const Display = ({ sizeInfo, appData }) => {
   const [sourceImg, setSourceImg] = useState(null);
@@ -25,7 +26,7 @@ const Display = ({ sizeInfo, appData }) => {
     yellowYOffset,
     blackXOffset,
     blackYOffset,
-    overFlow
+    overFlow,
   } = appData.settings;
 
   const cyanAsRGB = CMYKtoRGB(255, 0, 0, 0);
@@ -38,6 +39,29 @@ const Display = ({ sizeInfo, appData }) => {
   const yellow = `rgb(${yellowAsRGB.r}, ${yellowAsRGB.g}, ${yellowAsRGB.b})`;
   const black = `rgb(${blackAsRGB.r}, ${blackAsRGB.g}, ${blackAsRGB.b})`;
 
+  // const onFrameChange = (frameCanvas) => {
+  //   const smallCanvas = createSmallCanvas(
+  //     frameCanvas,
+  //     totalBlocksAlongLongestSide.value,
+  //     totalBlocksAlongLongestSide.value
+  //   );
+  //   // const bData = getBlockData(smallCanvas);
+  //   // const bData = getRGBBlockData(smallCanvas);
+  //   const bData = getCMYKBlockData(smallCanvas);
+
+  //   const { width, height } = getDimensions(
+  //     bData.width,
+  //     bData.height,
+  //     sizeInfo.width,
+  //     sizeInfo.height
+  //   );
+
+  //   setBlockData(bData);
+  //   setCanvasWidth(width);
+  //   setCanvasHeight(height);
+  //   setBlockSize(width / bData.width);
+  // };
+
   useEffect(() => {
     if (!sourceImg) {
       const image = new Image();
@@ -45,10 +69,11 @@ const Display = ({ sizeInfo, appData }) => {
       image.onload = () => {
         setSourceImg(image);
       };
+      image.src = "img/douglas-float.png";
+      // image.src = "img/jennie-4.jpg";
       // image.src = "img/holly.jpg";
       // image.src = "img/jennie-chris-1.jpg";
       // image.src = "img/holly-dot.jpg";
-      image.src = "img/jennie-4.jpg";
       // image.src = "img/jennie-eyes.jpg";
       //image.src = "img/jennie-eye.jpg";
       // image.src = "img/sample-397x480.png";
@@ -167,19 +192,20 @@ const Display = ({ sizeInfo, appData }) => {
             </g>
           ))}
       </svg>
+      {/* <WebcamCapture onFrameChange={onFrameChange} /> */}
     </Container>
   );
 };
 
 export default Display;
 
-const getCMYKBlockData = inputCanvas => {
+const getCMYKBlockData = (inputCanvas) => {
   const { width: inputW, height: inputH } = inputCanvas;
   const blockData = {
     width: inputW,
     height: inputH,
     rows: [],
-    cols: []
+    cols: [],
   };
 
   const inputCtx = inputCanvas.getContext("2d");
@@ -227,106 +253,106 @@ const getCMYKBlockData = inputCanvas => {
   return blockData;
 };
 
-const getRGBBlockData = inputCanvas => {
-  const { width: inputW, height: inputH } = inputCanvas;
-  const blockData = {
-    width: inputW,
-    height: inputH,
-    rows: [],
-    cols: []
-  };
+// const getRGBBlockData = (inputCanvas) => {
+//   const { width: inputW, height: inputH } = inputCanvas;
+//   const blockData = {
+//     width: inputW,
+//     height: inputH,
+//     rows: [],
+//     cols: [],
+//   };
 
-  const inputCtx = inputCanvas.getContext("2d");
-  let imgData = inputCtx.getImageData(0, 0, inputW, inputH);
-  let pixels = imgData.data;
+//   const inputCtx = inputCanvas.getContext("2d");
+//   let imgData = inputCtx.getImageData(0, 0, inputW, inputH);
+//   let pixels = imgData.data;
 
-  let i, r, g, b, rFrac, gFrac, bFrac, x, y;
+//   let i, r, g, b, rFrac, gFrac, bFrac, x, y;
 
-  for (y = 0; y < inputH; y++) {
-    const row = [];
+//   for (y = 0; y < inputH; y++) {
+//     const row = [];
 
-    for (x = 0; x < inputW; x++) {
-      i = (y * inputW + x) * 4;
+//     for (x = 0; x < inputW; x++) {
+//       i = (y * inputW + x) * 4;
 
-      r = pixels[i];
-      g = pixels[i + 1];
-      b = pixels[i + 2];
+//       r = pixels[i];
+//       g = pixels[i + 1];
+//       b = pixels[i + 2];
 
-      rFrac = 1 - r / 255;
-      gFrac = 1 - g / 255;
-      bFrac = 1 - b / 255;
+//       rFrac = 1 - r / 255;
+//       gFrac = 1 - g / 255;
+//       bFrac = 1 - b / 255;
 
-      row.push([rFrac, gFrac, bFrac]);
-    }
-    blockData.rows.push(row);
-  }
+//       row.push([rFrac, gFrac, bFrac]);
+//     }
+//     blockData.rows.push(row);
+//   }
 
-  // loop through the rows and the values in them
-  // for each rom push the values each into a different col
+//   // loop through the rows and the values in them
+//   // for each rom push the values each into a different col
 
-  let cellsPerRow = blockData.rows[0].length;
-  for (let rowIndex = 0; rowIndex < blockData.rows.length; rowIndex++) {
-    for (let cellIndex = 0; cellIndex < cellsPerRow; cellIndex++) {
-      // add col array if not made yet
-      if (!blockData.cols[cellIndex]) blockData.cols[cellIndex] = [];
+//   let cellsPerRow = blockData.rows[0].length;
+//   for (let rowIndex = 0; rowIndex < blockData.rows.length; rowIndex++) {
+//     for (let cellIndex = 0; cellIndex < cellsPerRow; cellIndex++) {
+//       // add col array if not made yet
+//       if (!blockData.cols[cellIndex]) blockData.cols[cellIndex] = [];
 
-      // add the row value to the correct col in the correct place
-      blockData.cols[cellIndex][rowIndex] = blockData.rows[rowIndex][cellIndex];
-    }
-  }
+//       // add the row value to the correct col in the correct place
+//       blockData.cols[cellIndex][rowIndex] = blockData.rows[rowIndex][cellIndex];
+//     }
+//   }
 
-  return blockData;
-};
+//   return blockData;
+// };
 
-const getBlockData = inputCanvas => {
-  const { width: inputW, height: inputH } = inputCanvas;
-  const blockData = {
-    width: inputW,
-    height: inputH,
-    rows: [],
-    cols: []
-  };
+// const getBlockData = (inputCanvas) => {
+//   const { width: inputW, height: inputH } = inputCanvas;
+//   const blockData = {
+//     width: inputW,
+//     height: inputH,
+//     rows: [],
+//     cols: [],
+//   };
 
-  const inputCtx = inputCanvas.getContext("2d");
-  let imgData = inputCtx.getImageData(0, 0, inputW, inputH);
-  let pixels = imgData.data;
+//   const inputCtx = inputCanvas.getContext("2d");
+//   let imgData = inputCtx.getImageData(0, 0, inputW, inputH);
+//   let pixels = imgData.data;
 
-  let i, r, g, b, brightness, decimalPercentage, x, y;
+//   let i, r, g, b, brightness, decimalPercentage, x, y;
 
-  for (y = 0; y < inputH; y++) {
-    const row = [];
+//   for (y = 0; y < inputH; y++) {
+//     const row = [];
 
-    for (x = 0; x < inputW; x++) {
-      i = (y * inputW + x) * 4;
+//     for (x = 0; x < inputW; x++) {
+//       i = (y * inputW + x) * 4;
 
-      r = pixels[i];
-      g = pixels[i + 1];
-      b = pixels[i + 2];
+//       r = pixels[i];
+//       g = pixels[i + 1];
+//       b = pixels[i + 2];
 
-      brightness = r * 0.2126 + g * 0.7152 + b * 0.0722;
+//       brightness = r * 0.2126 + g * 0.7152 + b * 0.0722;
 
-      decimalPercentage = 1 - brightness / 255;
-      row.push([decimalPercentage]);
-    }
-    blockData.rows.push(row);
-  }
+//       decimalPercentage = 1 - brightness / 255;
+//       row.push([decimalPercentage]);
+//     }
+//     blockData.rows.push(row);
+//   }
 
-  // loop through the rows and the values in them
-  // for each rom push the values each into a different col
+//   // loop through the rows and the values in them
+//   // for each rom push the values each into a different col
 
-  let cellsPerRow = blockData.rows[0].length;
-  for (let rowIndex = 0; rowIndex < blockData.rows.length; rowIndex++) {
-    for (let cellIndex = 0; cellIndex < cellsPerRow; cellIndex++) {
-      // add col array if not made yet
-      if (!blockData.cols[cellIndex]) blockData.cols[cellIndex] = [];
+//   let cellsPerRow = blockData.rows[0].length;
+//   for (let rowIndex = 0; rowIndex < blockData.rows.length; rowIndex++) {
+//     for (let cellIndex = 0; cellIndex < cellsPerRow; cellIndex++) {
+//       // add col array if not made yet
+//       if (!blockData.cols[cellIndex]) blockData.cols[cellIndex] = [];
 
-      // add the row value to the correct col in the correct place
-      blockData.cols[cellIndex][rowIndex] = blockData.rows[rowIndex][cellIndex];
-    }
-  }
+//       // add the row value to the correct col in the correct place
+//       blockData.cols[cellIndex][rowIndex] = blockData.rows[rowIndex][cellIndex];
+//     }
+//   }
 
-  return blockData;
-};
+//   return blockData;
+// };
 
 const getDimensions = (sourceW, sourceH, maxWidth, maxHeight) => {
   const widthToHeightRatio = sourceH / sourceW;

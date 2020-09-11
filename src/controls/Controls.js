@@ -14,7 +14,7 @@ const Controls = ({ appData, onUpdate }) => {
     const newSetting = { ...settings[key], value: newValue };
     onUpdate({
       ...appData,
-      settings: { ...settings, [key]: newSetting }
+      settings: { ...settings, [key]: newSetting },
     });
   };
 
@@ -35,7 +35,7 @@ const Controls = ({ appData, onUpdate }) => {
           <Button label="Save SVG" raised onClick={onSaveSvgClick} />
         </div>
 
-        {settingsKeys.map(key => {
+        {settingsKeys.map((key) => {
           const currSetting = settings[key];
 
           if (currSetting.type === "boolean") {
@@ -44,7 +44,7 @@ const Controls = ({ appData, onUpdate }) => {
                 key={key}
                 label={currSetting.label}
                 value={currSetting.value}
-                onChange={value => updateSettings(key, value)}
+                onChange={(value) => updateSettings(key, value)}
               />
             );
           } else if (currSetting.type === "range") {
@@ -57,10 +57,10 @@ const Controls = ({ appData, onUpdate }) => {
                 min={currSetting.min}
                 max={currSetting.max}
                 value={currSetting.value}
-                onChange={value => updateSettings(key, value)}
+                onChange={(value) => updateSettings(key, value)}
               />
             );
-          }
+          } else return null;
         })}
       </ControlsUI>
     </Container>
